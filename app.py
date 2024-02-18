@@ -32,7 +32,8 @@ end_date = st.sidebar.date_input('End Date', pd.to_datetime('today'))
 
 # Add sidebar slider for selecting two integers
 short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=100, value=12)
-long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=100, value=50)
+long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=250, value=50)
+signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=100, value=9)
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -43,7 +44,7 @@ if submit_button:
     data = yf.download(ticker, start=start_date, end=end_date)
     
     if not data.empty:
-        data = calculate_macd(data, short_window, long_window)
+        data = calculate_macd(data, short_window, long_window, signal_window)
         data = find_crossovers(data)
         # Plotting
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.02, subplot_titles=(f'{ticker} Candlestick', 'MACD'), row_width=[0.2, 0.7])

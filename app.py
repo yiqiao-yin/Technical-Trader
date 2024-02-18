@@ -22,6 +22,13 @@ def find_crossovers(df):
     df.loc[crossover_indices, 'Crossover'] = -1  # Mark red triangle for bearish crossover
     return df
 
+# New function to get fundamentals data
+def get_fundamentals(ticker):
+    stock = yf.Ticker(ticker)
+    # Fetching annual report data
+    annual_report = stock.financials
+    return annual_report
+
 # Streamlit app layout
 st.title('MACD Trading Strategy Simulation')
 
@@ -64,3 +71,11 @@ if submit_button:
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.write("No data available for the given ticker.")
+
+    # New section to get and display fundamentals data under an expander
+    with st.expander("View Fundamentals Data"):
+        fundamentals_data = get_fundamentals(ticker)
+        if not fundamentals_data.empty:
+            st.table(fundamentals_data)
+        else:
+            st.write("No fundamentals data available for the given ticker.")

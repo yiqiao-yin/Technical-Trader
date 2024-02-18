@@ -25,9 +25,11 @@ def find_crossovers(df):
 # New function to get fundamentals data
 def get_fundamentals(ticker):
     stock = yf.Ticker(ticker)
+
     # Fetching annual report data
-    annual_report = stock.financials
-    return annual_report
+    fin_data_dict = stock.financial_data
+    fin_data_df = pd.DataFrame.from_dict(fin_data_dict, orient=‘index’).T
+    return fin_data_df
 
 # Streamlit app layout
 st.title('MACD Trading Strategy Simulation')

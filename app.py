@@ -38,9 +38,10 @@ start_date = st.sidebar.date_input('Start Date', pd.to_datetime('2020-01-01'))
 end_date = st.sidebar.date_input('End Date', pd.to_datetime('today'))
 
 # Add sidebar slider for selecting two integers
-short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=100, value=12)
+st.success("Please feel free select your own MACD parameters.")
+short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=200, value=12)
 long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=250, value=50)
-signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=100, value=9)
+signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=250, value=9)
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -66,7 +67,7 @@ if submit_button:
 
         # Marking crossovers
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['MACD'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (MACD) ✅'), row=2, col=1)
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (MACD)🈲'), row=2, col=1)
+        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (MACD) 🈲'), row=2, col=1)
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (Close) ✅'), row=1, col=1)
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (Close) 🈲'), row=1, col=1)
         

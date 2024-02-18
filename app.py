@@ -53,6 +53,7 @@ if submit_button:
     if not data.empty:
         data = calculate_macd(data, short_window, long_window, signal_window)
         data = find_crossovers(data)
+
         # Plotting
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.02, subplot_titles=(f'{ticker} Candlestick', 'MACD'), row_width=[0.2, 0.7])
 
@@ -66,8 +67,8 @@ if submit_button:
         # Marking crossovers
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['MACD'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover ✅'), row=2, col=1)
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover 🈲'), row=2, col=1)
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Close'] == 1]['MACD'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover ✅'), row=2, col=1)
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Close'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover 🈲'), row=2, col=1)
+        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover ✅'), row=2, col=1)
+        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover 🈲'), row=2, col=1)
 
         fig.update_layout(xaxis_rangeslider_visible=False)
         st.plotly_chart(fig, use_container_width=True)

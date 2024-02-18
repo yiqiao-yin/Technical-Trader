@@ -30,11 +30,15 @@ ticker = st.sidebar.text_input('Enter Stock Ticker', 'AAPL').upper()
 start_date = st.sidebar.date_input('Start Date', pd.to_datetime('2020-01-01'))
 end_date = st.sidebar.date_input('End Date', pd.to_datetime('today'))
 
+# Add sidebar slider for selecting two integers
+short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=100, value=12)
+long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=100, value=50)
+
 # Download stock data
 data = yf.download(ticker, start=start_date, end=end_date)
 
 if not data.empty:
-    data = calculate_macd(data)
+    data = calculate_macd(data, short_window, long_window)
     data = find_crossovers(data)
 
     # Plotting

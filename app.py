@@ -75,7 +75,6 @@ if submit_button:
     # New section to get and display fundamentals data under an expander
     with st.expander("View Fundamentals Data"):
         fundamentals_data, _, _ = get_fundamentals(ticker)
-        st.write(fundamentals_data)
         if not fundamentals_data.empty:
             st.table(fundamentals_data)
         else:

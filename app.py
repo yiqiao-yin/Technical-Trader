@@ -38,7 +38,7 @@ start_date = st.sidebar.date_input('Start Date', pd.to_datetime('2020-01-01'))
 end_date = st.sidebar.date_input('End Date', pd.to_datetime('today'))
 
 # Add sidebar slider for selecting two integers
-st.success("Please feel free select your own MACD parameters.")
+st.sidebar.success("Please feel free select your own MACD parameters.")
 short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=200, value=12)
 long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=250, value=50)
 signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=250, value=9)

@@ -25,3 +25,57 @@ Ensure you have Python installed on your machine. This app was developed using P
    ```sh
    git clone https://your-repository-url.git
    cd your-repository-directory
+   ```
+
+2. **Create and activate a virtual environment (optional but recommended)**
+
+   For Windows:
+   ```sh
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+   For macOS and Linux:
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install the requirements**
+
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+### Running the App
+
+After installation, you can run the app using Streamlit:
+
+```sh
+streamlit run app.py
+```
+
+Open your web browser and go to `http://localhost:8501` to view the app.
+
+## 📚 Documentation
+
+For more information about the used libraries, visit:
+
+- [Streamlit Documentation](https://docs.streamlit.io)
+- [yfinance on PyPI](https://pypi.org/project/yfinance/)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Plotly Python Graphing Library](https://plotly.com/python/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](https://your-repository-url/issues).
+
+## ✨ Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.

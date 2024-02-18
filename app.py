@@ -27,9 +27,7 @@ def get_fundamentals(ticker):
     stock = yf.Ticker(ticker)
 
     # Fetching annual report data
-    fin_data_dict = stock.financial_data
-    fin_data_df = pd.DataFrame.from_dict(fin_data_dict, orient="index").T
-    return fin_data_df
+    return stock.income_stmt, stock.balance_sheet, stock.cashflow
 
 # Streamlit app layout
 st.title('MACD Trading Strategy Simulation')
@@ -76,7 +74,7 @@ if submit_button:
 
     # New section to get and display fundamentals data under an expander
     with st.expander("View Fundamentals Data"):
-        fundamentals_data = get_fundamentals(ticker)
+        fundamentals_data, _, _ = get_fundamentals(ticker)
         st.write(fundamentals_data)
         if not fundamentals_data.empty:
             st.table(fundamentals_data)

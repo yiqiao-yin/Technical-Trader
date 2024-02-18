@@ -28,7 +28,7 @@ def get_fundamentals(ticker):
 
     # Fetching annual report data
     fin_data_dict = stock.financial_data
-    fin_data_df = pd.DataFrame.from_dict(fin_data_dict, orient=‘index’).T
+    fin_data_df = pd.DataFrame.from_dict(fin_data_dict, orient="index").T
     return fin_data_df
 
 # Streamlit app layout

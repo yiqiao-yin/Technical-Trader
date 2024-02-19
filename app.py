@@ -32,28 +32,7 @@ if submit_button:
         data = find_crossovers(data)
 
         # Plotting
-        fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.02, subplot_titles=(f'{ticker} Candlestick', 'MACD'), row_width=[0.2, 0.7])
-
-        # Candlestick plot
-        fig.add_trace(go.Candlestick(x=data.index, open=data['Open'], high=data['High'], low=data['Low'], close=data['Close'], name='Candlestick'), row=1, col=1)
-
-        # MACD plot
-        fig.add_trace(go.Scatter(x=data.index, y=data['MACD'], line=dict(color='blue', width=2), name='MACD'), row=2, col=1)
-        fig.add_trace(go.Scatter(x=data.index, y=data['Signal_Line'], line=dict(color='orange', width=2), name='Signal Line'), row=2, col=1)
-
-        # Marking crossovers
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['MACD'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (MACD) ✅'), row=2, col=1)
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (MACD) 🈲'), row=2, col=1)
-
-        # Marking crossovers on stock chart
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (Close) ✅'), row=1, col=1)
-        fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (Close) 🈲'), row=1, col=1)
-
-        # Layout
-        fig.update_layout(
-            xaxis_rangeslider_visible=False,
-            height=800  # Set the height of the figure (in pixels)
-        )
+        fig = create_fig(data)
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.write("No data available for the given ticker.")

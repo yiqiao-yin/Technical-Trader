@@ -18,6 +18,9 @@ st.sidebar.success("Please feel free select your own MACD parameters.")
 short_window = st.sidebar.slider('Select short window size', min_value=2, max_value=200, value=12)
 long_window = st.sidebar.slider('Select long window size', min_value=2, max_value=250, value=50)
 signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=250, value=9)
+values = st.sidebar.slider(
+    'Select a range of values',
+    -20, 20, (-10, 10))
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -31,7 +34,7 @@ if submit_button:
         
         if not data.empty:
             data = calculate_macd(data, short_window, long_window, signal_window)
-            data = find_crossovers(data)
+            data = find_crossovers(data, values[0], values[1])
     
             # Plotting
             fig = create_fig(data, ticker)

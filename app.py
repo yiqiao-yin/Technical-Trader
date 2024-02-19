@@ -29,12 +29,6 @@ values = st.sidebar.slider(
 option = st.sidebar.selectbox(
     'How would you like rescale data?',
     ('Original', 'Normalization', 'Percentile'))
-if option == 'Original':
-    st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data).')
-elif option == 'Normalization':
-    st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data). Next, we normalize the MACD/Signal Line so that fall in a consistent range, i.e. approximately from -2 to 2.')
-else:
-    st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data). Next, we normalize the MACD/Signal Line so that fall in a consistent range, i.e. approximately from -2 to 2. Last, we use the normalized data to create probabilities from -100% to +100%. The probability means statistically what is believed to reverse the current direction.')
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -42,6 +36,13 @@ submit_button = st.sidebar.button('Submit')
 # Update to execute changes only when the submit button is clicked
 if submit_button:
     with st.spinner('Wait for it...'):
+        # Message
+        if option == 'Original':
+            st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data).')
+        elif option == 'Normalization':
+            st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data). Next, we normalize the MACD/Signal Line so that fall in a consistent range, i.e. approximately from -2 to 2.')
+        else:
+            st.success('We use the stock price (within the range selected) to create the MACD and Signal Line (which numerically vary based on price data). Next, we normalize the MACD/Signal Line so that fall in a consistent range, i.e. approximately from -2 to 2. Last, we use the normalized data to create probabilities from -100% to +100%. The probability means statistically what is believed to reverse the current direction.')
 
         # Download stock data
         data = yf.download(ticker, start=start_date, end=end_date)

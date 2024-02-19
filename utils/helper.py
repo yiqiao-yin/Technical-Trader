@@ -40,8 +40,8 @@ def calculate_percentile_macd(data, short_window=12, long_window=26, signal_wind
     data['Signal_Line'] = (data['Signal_Line'] - data['Signal_Line'].mean()) / data['Signal_Line'].std()
     
     # Convert normalized data to percentiles (CDF) and rescale to -100% to +100%
-    data['MACD_Percentile'] = norm.cdf(data['MACD']) * 200 - 100  # Rescale CDF values
-    data['Signal_Line_Percentile'] = norm.cdf(data['Signal_Line']) * 200 - 100  # Rescale CDF values
+    data['MACD'] = norm.cdf(data['MACD']) * 200 - 100  # Rescale CDF values
+    data['Signal_Line'] = norm.cdf(data['Signal_Line']) * 200 - 100  # Rescale CDF values
     
     return data
 

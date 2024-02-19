@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from scipy.stats import norm
 
 
 # Function to calculate MACD and Signal line
@@ -25,6 +26,22 @@ def calculate_normalized_macd(data, short_window=12, long_window=26, signal_wind
     
     # Normalize the 'Signal_Line' column
     data['Signal_Line'] = (data['Signal_Line'] - data['Signal_Line'].mean()) / data['Signal_Line'].std()
+    
+    return data
+
+def calculate_percentile_macd(data, short_window=12, long_window=26, signal_window=9):
+    short_ema = data.Close.ewm(span=short_window, adjust=False).mean()
+    long_ema = data.Close.ewm(span=long_window, adjust=False).mean()
+    data['MACD'] = short_ema - long_ema
+    data['Signal_Line'] = data.MACD.ewm(span=signal_window, adjust=False).mean()
+    
+    # Normalize the 'MACD' and 'Signal_Line' columns
+    data['MACD'] = (data['MACD'] - data['MACD'].mean()) / data['MACD'].std()
+    data['Signal_Line'] = (data['Signal_Line'] - data['Signal_Line'].mean()) / data['Signal_Line'].std()
+    
+    # Convert normalized data to percentiles (CDF) and rescale to -100% to +100%
+    data['MACD_Percentile'] = norm.cdf(data['MACD']) * 200 - 100  # Rescale CDF values
+    data['Signal_Line_Percentile'] = norm.cdf(data['Signal_Line']) * 200 - 100  # Rescale CDF values
     
     return data
 

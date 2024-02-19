@@ -24,7 +24,7 @@ values = st.sidebar.slider(
     min_value=-50,
     max_value=50,
     value=(-10, 10),
-    step=0.01)
+    step=1)
 normalize_data = st.sidebar.checkbox('Use normalized MACD and Signal line.')
 
 # Add submit button in the sidebar

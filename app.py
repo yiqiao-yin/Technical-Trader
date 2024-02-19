@@ -21,7 +21,7 @@ long_window = st.sidebar.slider('Select long window size', min_value=2, max_valu
 signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=250, value=9)
 values = st.sidebar.slider(
     'Select a range of values',
-    -50, 50, (-10, 10), 0.01)
+    -50, 50, (-10, 10))
 normalize_data = st.sidebar.checkbox('Use normalized MACD and Signal line.')
 
 # Add submit button in the sidebar

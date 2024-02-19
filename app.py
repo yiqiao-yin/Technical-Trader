@@ -24,23 +24,25 @@ submit_button = st.sidebar.button('Submit')
 
 # Update to execute changes only when the submit button is clicked
 if submit_button:
-    # Download stock data
-    data = yf.download(ticker, start=start_date, end=end_date)
+    with st.spinner('Wait for it...'):
+
+        # Download stock data
+        data = yf.download(ticker, start=start_date, end=end_date)
+        
+        if not data.empty:
+            data = calculate_macd(data, short_window, long_window, signal_window)
+            data = find_crossovers(data)
     
-    if not data.empty:
-        data = calculate_macd(data, short_window, long_window, signal_window)
-        data = find_crossovers(data)
-
-        # Plotting
-        fig = create_fig(data, ticker)
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.write("No data available for the given ticker.")
-
-    # New section to get and display fundamentals data under an expander
-    with st.expander("View Fundamentals Data"):
-        fundamentals_data, _, _ = get_fundamentals(ticker)
-        if not fundamentals_data.empty:
-            st.table(fundamentals_data)
+            # Plotting
+            fig = create_fig(data, ticker)
+            st.plotly_chart(fig, use_container_width=True)
         else:
-            st.write("No fundamentals data available for the given ticker.")
+            st.write("No data available for the given ticker.")
+    
+        # New section to get and display fundamentals data under an expander
+        with st.expander("View Fundamentals Data"):
+            fundamentals_data, _, _ = get_fundamentals(ticker)
+            if not fundamentals_data.empty:
+                st.table(fundamentals_data)
+            else:
+                st.write("No fundamentals data available for the given ticker.")

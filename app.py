@@ -22,6 +22,7 @@ signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_
 values = st.sidebar.slider(
     'Select a range of values',
     -20, 20, (-10, 10))
+normalize_data = st.checkbox('Use normalized MACD and Signal line.')
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -34,7 +35,10 @@ if submit_button:
         data = yf.download(ticker, start=start_date, end=end_date)
         
         if not data.empty:
-            data = calculate_macd(data, short_window, long_window, signal_window)
+            if normalize_data:
+                data = calculate_normalized_macd(data, short_window, long_window, signal_window)
+            else:
+                data = calculate_macd(data, short_window, long_window, signal_window)
             data = find_crossovers(data, values[0], values[1])
     
             # Plotting

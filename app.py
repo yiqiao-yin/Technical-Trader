@@ -28,7 +28,7 @@ values = st.sidebar.slider(
     step=1)
 option = st.sidebar.selectbox(
     'How would you like rescale data?',
-    ('Normalization', 'Percentile', 'Original'))
+    ('Original', 'Percentile', 'Normalization'))
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')

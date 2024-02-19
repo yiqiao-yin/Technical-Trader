@@ -41,7 +41,7 @@ if submit_button:
         data = yf.download(ticker, start=start_date, end=end_date)
         
         if not data.empty:
-            if option == "Normalization:
+            if option == "Normalization":
                 data = calculate_normalized_macd(data, short_window, long_window, signal_window)
             elif option == "Percentile":
                 data = calculate_percentile_macd(data, short_window, long_window, signal_window)

@@ -14,12 +14,12 @@ def calculate_macd(data, short_window=12, long_window=26, signal_window=9):
     return data
 
 # Function to find MACD crossover points
-def find_crossovers(df):
+def find_crossovers(df, bullish_threshold, bearish_threshold):
     df['Crossover'] = 0  # Default no crossover
     # Find crossover points
-    crossover_indices = df.index[(df['MACD'] > df['Signal_Line']) & (df['MACD'].shift() < df['Signal_Line'].shift())]
+    crossover_indices = df.index[(df['MACD'] > df['Signal_Line']) & (df['MACD'].shift() < df['Signal_Line'].shift()) & (df['Signal_Line'] < bullish_threshold)]
     df.loc[crossover_indices, 'Crossover'] = 1  # Mark green triangle for bullish crossover
-    crossover_indices = df.index[(df['MACD'] < df['Signal_Line']) & (df['MACD'].shift() > df['Signal_Line'].shift())]
+    crossover_indices = df.index[(df['MACD'] < df['Signal_Line']) & (df['MACD'].shift() > df['Signal_Line'].shift()) & (df['Signal_Line'] > bearish_threshold)]
     df.loc[crossover_indices, 'Crossover'] = -1  # Mark red triangle for bearish crossover
     return df
 

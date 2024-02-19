@@ -22,8 +22,8 @@ long_window = st.sidebar.slider('Select long window size', min_value=2, max_valu
 signal_window = st.sidebar.slider('Select signal window size', min_value=2, max_value=250, value=9)
 values = st.sidebar.slider(
     'Select a range of values',
-    min_value=-50,
-    max_value=50,
+    min_value=-100,
+    max_value=100,
     value=(-10, 10),
     step=1)
 option = st.sidebar.selectbox(

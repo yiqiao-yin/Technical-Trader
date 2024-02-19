@@ -47,8 +47,8 @@ def create_fig(data, ticker):
     fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (MACD) 🈲'), row=2, col=1)
     
     # Marking crossovers on stock chart
-    fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (Close) ✅'), row=1, col=1)
-    fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (Close) 🈲'), row=1, col=1)
+    fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=20, name='Bullish Crossover (Close) ✅'), row=1, col=1)
+    fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=20, name='Bearish Crossover (Close) 🈲'), row=1, col=1)
     
     # Layout
     fig.update_layout(

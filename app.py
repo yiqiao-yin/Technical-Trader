@@ -32,7 +32,7 @@ if submit_button:
         data = find_crossovers(data)
 
         # Plotting
-        fig = create_fig(data)
+        fig = create_fig(data, ticker)
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.write("No data available for the given ticker.")

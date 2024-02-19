@@ -68,10 +68,16 @@ if submit_button:
         # Marking crossovers
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['MACD'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (MACD) ✅'), row=2, col=1)
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['MACD'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (MACD) 🈲'), row=2, col=1)
+
+        # Marking crossovers on stock chart
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == 1].index, y=data[data['Crossover'] == 1]['Close'], marker_symbol='triangle-up', marker_color='green', marker_size=10, name='Bullish Crossover (Close) ✅'), row=1, col=1)
         fig.add_trace(go.Scatter(mode='markers', x=data[data['Crossover'] == -1].index, y=data[data['Crossover'] == -1]['Close'], marker_symbol='triangle-down', marker_color='red', marker_size=10, name='Bearish Crossover (Close) 🈲'), row=1, col=1)
-        
-        fig.update_layout(xaxis_rangeslider_visible=False)
+
+        # Layout
+        fig.update_layout(
+            xaxis_rangeslider_visible=False,
+            height=800  # Set the height of the figure (in pixels)
+        )
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.write("No data available for the given ticker.")

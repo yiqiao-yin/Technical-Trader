@@ -25,7 +25,9 @@ values = st.sidebar.slider(
     max_value=50,
     value=(-10, 10),
     step=1)
-normalize_data = st.sidebar.checkbox('Use normalized MACD and Signal line.')
+option = st.selectbox(
+    'How would you like rescale data?',
+    ('Normalization', 'Percentile', 'Original'))
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button('Submit')
@@ -38,7 +40,9 @@ if submit_button:
         data = yf.download(ticker, start=start_date, end=end_date)
         
         if not data.empty:
-            if normalize_data:
+            if option == "Normalization:
+                data = calculate_normalized_macd(data, short_window, long_window, signal_window)
+            elif option == "Percentile":
                 data = calculate_normalized_macd(data, short_window, long_window, signal_window)
             else:
                 data = calculate_macd(data, short_window, long_window, signal_window)

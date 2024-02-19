@@ -2,6 +2,10 @@
 
 This app simulates a trading strategy using the Moving Average Convergence Divergence (MACD) technical indicator. It allows users to input a stock ticker, start date, and end date to download stock data and visualize the strategy using candlestick charts and MACD indicators. The app marks bullish crossovers with green triangles up and bearish crossovers with red triangles down.
 
+## 🖥️ App
+
+The app is currently deployed to [this app](https://technical-trader.streamlit.app/).
+
 ## Features
 
 - **Stock Ticker Input**: Enter any valid stock ticker to analyze.

@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from utils.helper import *
+from scipy.stats import norm
 
 # Streamlit app layout
 st.set_page_config(layout="wide")
@@ -43,7 +44,7 @@ if submit_button:
             if option == "Normalization:
                 data = calculate_normalized_macd(data, short_window, long_window, signal_window)
             elif option == "Percentile":
-                data = calculate_normalized_macd(data, short_window, long_window, signal_window)
+                data = calculate_percentile_macd(data, short_window, long_window, signal_window)
             else:
                 data = calculate_macd(data, short_window, long_window, signal_window)
             data = find_crossovers(data, values[0], values[1])

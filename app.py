@@ -49,15 +49,19 @@ if submit_button:
         if not data.empty:
             if option == "Normalization":
                 data = calculate_normalized_macd(data, short_window, long_window, signal_window)
+                some_warning_message = "normalized data"
             elif option == "Percentile":
                 data = calculate_percentile_macd(data, short_window, long_window, signal_window)
+                some_warning_message = "percentile data (numbers in %)"
             else:
                 data = calculate_macd(data, short_window, long_window, signal_window)
+                some_warning_message = "original data"
             data = find_crossovers(data, values[0], values[1])
     
             # Plotting
             fig = create_fig(data, ticker)
             st.plotly_chart(fig, use_container_width=True)
+            st.warning(f"In the above graph, we use {some_warning_message}.")
         else:
             st.write("No data available for the given ticker.")
     

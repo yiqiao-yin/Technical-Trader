@@ -6,6 +6,7 @@ from plotly.subplots import make_subplots
 from utils.helper import *
 
 # Streamlit app layout
+st.set_page_config(layout="wide")
 st.title('MACD Trading Strategy Simulation')
 
 # Sidebar inputs

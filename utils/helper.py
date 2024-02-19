@@ -31,7 +31,7 @@ def get_fundamentals(ticker):
     return stock.income_stmt, stock.balance_sheet, stock.cashflow
 
 # Create figure object
-def create_fig(data):
+def create_fig(data, ticker):
     # Plotting
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.02, subplot_titles=(f'{ticker} Candlestick', 'MACD'), row_width=[0.2, 0.7])
     

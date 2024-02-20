@@ -70,8 +70,12 @@ if submit_button:
     
         # New section to get and display fundamentals data under an expander
         with st.expander("View Fundamentals Data"):
-            fundamentals_data, _, _ = get_fundamentals(ticker)
+            a, b, c = get_fundamentals(ticker)
+            fundamentals_data = pd.concat([a, b, c], axis=0)
             fundamentals_data_t = fundamentals_data.transpose()
+            fundamentals_data_t['date'] = fundamentals_data_t.index
+            fundamentals_data_t.reset_index(drop=True, inplace=True)
+
             if not fundamentals_data.empty:
                 # Generate a table (crude way)
                 # st.table(fundamentals_data)

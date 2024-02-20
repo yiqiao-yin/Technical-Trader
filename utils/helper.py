@@ -87,6 +87,12 @@ def get_fundamentals(ticker):
 
 # Create figure object
 def create_fig(data, ticker):
+    # Calculate moving averages
+    data['MA12'] = data['Close'].rolling(window=12).mean()
+    data['MA26'] = data['Close'].rolling(window=26).mean()
+    data['MA50'] = data['Close'].rolling(window=50).mean()
+    data['MA200'] = data['Close'].rolling(window=200).mean()
+
     # Plotting
     fig = make_subplots(
         rows=2,
@@ -110,6 +116,19 @@ def create_fig(data, ticker):
         row=1,
         col=1,
     )
+
+    # Add moving average traces
+    for ma, color in zip(['MA12', 'MA26', 'MA50', 'MA200'], ['magenta', 'cyan', 'yellow', 'black']):
+        fig.add_trace(
+            go.Scatter(
+                x=data.index,
+                y=data[ma],
+                line=dict(color=color, width=1.5),
+                name=f'{ma} days MA',
+            ),
+            row=1,
+            col=1,
+        )
 
     # MACD plot
     fig.add_trace(

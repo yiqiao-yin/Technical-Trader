@@ -71,12 +71,13 @@ if submit_button:
         # New section to get and display fundamentals data under an expander
         with st.expander("View Fundamentals Data"):
             fundamentals_data, _, _ = get_fundamentals(ticker)
+            fundamentals_data_t = fundamentals_data.transpose()
             if not fundamentals_data.empty:
                 # Generate a table (crude way)
                 # st.table(fundamentals_data)
 
                 # Generate the HTML using Pygwalker (user-friendly and flexible)
-                pyg_html = pyg.walk(fundamentals_data, return_html=True)
+                pyg_html = pyg.walk(fundamentals_data_t, return_html=True)
 
                 # Embed the HTML into the Streamlit app
                 components.html(pyg_html, height=1000, scrolling=True)

@@ -5,6 +5,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from utils.helper import *
 from scipy.stats import norm
+import pygwalker as pyg
+import streamlit.components.v1 as components
 
 # Streamlit app layout
 st.set_page_config(layout="wide")
@@ -70,6 +72,10 @@ if submit_button:
         with st.expander("View Fundamentals Data"):
             fundamentals_data, _, _ = get_fundamentals(ticker)
             if not fundamentals_data.empty:
-                st.table(fundamentals_data)
+                # st.table(fundamentals_data)
+                # Generate the HTML using Pygwalker
+                pyg_html = pyg.walk(df, return_html=True)
+                # Embed the HTML into the Streamlit app
+                components.html(pyg_html, height=1000, scrolling=True)
             else:
                 st.write("No fundamentals data available for the given ticker.")

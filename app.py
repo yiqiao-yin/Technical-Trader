@@ -37,9 +37,9 @@ option = st.sidebar.selectbox(
     "How would you like rescale data?", ("Original", "Normalization", "Percentile")
 )
 want_forecast = st.sidebar.checkbox("want_forecast")
-if want_forecast == "want_forecast":
-    num_days = st.sidebar.number_input("Insert a number")
-    num_days = np.round(num_days)
+# if want_forecast == "want_forecast":
+num_days = st.sidebar.number_input("Insert a number")
+num_days = np.round(num_days)
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button("Submit")
@@ -64,9 +64,9 @@ if submit_button:
         # Download stock data
         data = yf.download(ticker, start=start_date, end=end_date)
 
-        if want_forecast == "want_forecast":
-            data = generate_simulated_data(data, num_days)
-            st.table(data)
+        # if want_forecast == "want_forecast":
+        data = generate_simulated_data(data, num_days)
+        st.table(data)
 
         if not data.empty:
             if option == "Normalization":

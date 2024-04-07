@@ -59,7 +59,7 @@ if submit_button:
 
         # Download stock data
         data = yf.download(ticker, start=start_date, end=end_date)
-        data = generate_simulated_data(data, 30)
+        data = generate_simulated_data(data, 3)
 
         if not data.empty:
             if option == "Normalization":

@@ -63,12 +63,9 @@ if submit_button:
         want_forecast = st.sidebar.checkbox("want_forecast")
 
         if want_forecast == "want_forecast":
-            try:
-                num_days = st.sidebar.number_input("Insert a number")
-                num_days = np.round(num_days)
-                data = generate_simulated_data(data, num_days)
-            except:
-                st.warning("Please verify dataframe.")
+            num_days = st.sidebar.number_input("Insert a number")
+            num_days = np.round(num_days)
+            data = generate_simulated_data(data, num_days)
 
         if not data.empty:
             if option == "Normalization":

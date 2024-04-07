@@ -192,7 +192,7 @@ def find_crossovers(
     return df
 
 
-def get_fundamentals(ticker: str) -> tuple(pd.DataFrame, pd.DataFrame, pd.DataFrame):
+def get_fundamentals(ticker: str):
     """
     Fetches the income statement, balance sheet, and cash flow statement for a given stock ticker.
 

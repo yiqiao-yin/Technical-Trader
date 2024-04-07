@@ -64,8 +64,6 @@ if submit_button:
 
         if want_forecast == "want_forecast":
             try:
-                # TODO
-                None
                 num_days = st.sidebar.number_input("Insert a number")
                 num_days = np.round(num_days)
                 data = generate_simulated_data(data, num_days)

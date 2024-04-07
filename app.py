@@ -39,7 +39,7 @@ option = st.sidebar.selectbox(
 want_forecast = st.sidebar.checkbox("want_forecast")
 # if want_forecast == "want_forecast":
 num_days = st.sidebar.number_input("Insert a number")
-num_days = np.round(num_days, 0)
+num_days = round(number, 0)
 
 # Add submit button in the sidebar
 submit_button = st.sidebar.button("Submit")

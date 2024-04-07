@@ -4,6 +4,7 @@ import streamlit as st
 import yfinance as yf
 from plotly.subplots import make_subplots
 from scipy.stats import norm
+import numpy as np
 
 
 def calculate_macd(
@@ -357,3 +358,47 @@ def create_fig(data: pd.DataFrame, ticker: str) -> go.Figure:
     )
 
     return fig
+
+
+def generate_simulated_data(data: pd.DataFrame, num_days: int) -> pd.DataFrame:
+    """
+    Generates simulated future data for a given DataFrame based on the statistical characteristics 
+    (mean and standard deviation) of the input data.
+
+    The simulation assumes normally distributed returns and extrapolates future values by computing 
+    the cumulative product of random returns.
+
+    Parameters:
+        data (pandas.DataFrame): The historical data on which the simulation will be based. The index must be date-based.
+        num_days (int): The number of days into the future for which data should be simulated.
+
+    Returns:
+        pandas.DataFrame: A DataFrame containing the original historical data appended with the simulated future data.
+    """
+
+    # Compute mean and standard deviation for each column
+    means = data.mean()
+    stds = data.std()
+
+    # Generate random returns from normal distribution
+    random_returns = pd.DataFrame()
+    for col in data.columns:
+        random_returns[col] = np.random.normal(loc=means[col], scale=stds[col], size=num_days)
+
+    # Add 1 to the returns
+    random_returns += 1
+
+    # Compute cumulative product to get factors
+    factors = random_returns.cumprod()
+
+    # Generate future dates
+    last_date = data.index[-1]
+    future_dates = pd.date_range(start=last_date + pd.DateOffset(days=1), periods=num_days)
+
+    # Append future factors to original data
+    future_data = pd.DataFrame(index=future_dates, columns=data.columns, data=factors.values)
+
+    # Concatenate original data and future data
+    simulated_data = pd.concat([data, future_data])
+
+    return simulated_data

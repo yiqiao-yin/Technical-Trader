@@ -60,6 +60,18 @@ if submit_button:
         # Download stock data
         data = yf.download(ticker, start=start_date, end=end_date)
 
+        want_forecast = st.sidebar.checkbox("want_forecast")
+
+        if want_forecast == "want_forecast":
+            try:
+                # TODO
+                None
+                num_days = st.sidebar.number_input("Insert a number")
+                num_days = np.round(num_days)
+                data = generate_simulated_data(data, num_days)
+            except:
+                st.warning("Please verify dataframe.")
+
         if not data.empty:
             if option == "Normalization":
                 data = calculate_normalized_macd(

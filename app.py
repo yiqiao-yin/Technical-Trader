@@ -66,6 +66,7 @@ if submit_button:
 
         if want_forecast == "want_forecast":
             data = generate_simulated_data(data, num_days)
+            st.table(data)
 
         if not data.empty:
             if option == "Normalization":
